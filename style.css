@@ -1,0 +1,19 @@
+.line {
+    font-weight: bold;
+    float: left;
+}
+
+.head {
+    float: left;
+    margin-right: 10px;
+}
+
+.add {
+    font-weight: bold;
+}
+
+div:after {
+    content: "";
+    clear: both;
+    display: block;
+}
