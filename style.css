@@ -4,8 +4,8 @@
 }
 
 .head {
-    float: left;
     margin-right: 10px;
+    float: left;
 }
 
 .add {
@@ -16,4 +16,16 @@ div:after {
     content: "";
     clear: both;
     display: block;
+}
+
+.new {
+    clear: both;
+}
+
+.btn a {
+    text-decoration: none;
+    color: black;
+    background-color: #EEEEEE;
+    padding: 5px;
+    border: solid 1px #DDDDDD;
 }
