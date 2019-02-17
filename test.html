@@ -14,18 +14,22 @@
         <label for="">:3件を表示中</label>
     </div>
         
-    
-    <div class="line">
-        <p class="head">ID</p>
-        <p class="head">コメント</p>
-        <p class="head">状態</p>
-        <p class="head">-</p>
-    </div>
+    <table id="testTable">
+        <tr>
+            <td>ID</td>
+            <td>コメント</td>
+            <td>状態</td>
+            <td>-</td>
+        </tr>
+    </table>
     <div class="new">
         <p class="add">新規タスクの追加</p>
-        <label><input type="text" name="todo"></label>
-        <P class="btn"><a href="#">追加</a></P>
+        <label><input type="text" name="todo" id="task"></label>
+        <button id="btn">追加</button>
     </div>
+
+    <!--JavaScriptファイルを読み込む-->
+    <script src="sample.js"></script>
 
 </body>
 </html>

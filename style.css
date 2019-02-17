@@ -1,11 +1,9 @@
-.line {
+tr {
     font-weight: bold;
-    float: left;
 }
 
-.head {
-    margin-right: 10px;
-    float: left;
+td {
+    padding-right: 15px;
 }
 
 .add {
@@ -22,10 +20,3 @@ div:after {
     clear: both;
 }
 
-.btn a {
-    text-decoration: none;
-    color: black;
-    background-color: #EEEEEE;
-    padding: 5px;
-    border: solid 1px #DDDDDD;
-}
