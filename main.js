@@ -15,24 +15,42 @@
 //手順１
 //document.getElementById()という関数を用いて追加ボタンのDOM要素を取得
 //※HTMLファイルも少しいじる必要があります。
-const btn = document.getElementById('btn');
+let btn = document.getElementById('btn');
 
+index = 1;
 //手順２
 //追加ボタン押下時に実行する関数を定義
 btn.addEventListener('click', add => {
-    const addItem = document.createElement('tr');
-    const addItem1 = document.createElement('td');
-    const addItem2 = document.createElement('td');
-    const addItem3 = document.createElement('td');
-    const addItem4 = document.createElement('td');
+    //テーブルの要素を作る
+    let addItem = document.createElement('tr');
+    let addItem1 = document.createElement('td');
+    let addItem2 = document.createElement('td');
+    let addItem3 = document.createElement('button');
+    let addItem4 = document.createElement('button');
 
-    const text = document.getElementById('task').textContent;
+    //textにnputタグに入力された文字列を取得して代入
+    let text = document.getElementById('task').value;
 
-    addItem1 = text;
+    //addItem1の文字列にindexを代入
+    addItem1.textContent = index;
+    //addItem2の文字列にtextを代入
+    addItem2.textContent = text;
+    
+    //作成したbuttonに名前をつける
+    addItem3.textContent = "作業中";
+    addItem4.textContent = "削除";
 
+    //作ったテーブルにaddItem1と2を追加
     addItem.appendChild(addItem1);
+    addItem.appendChild(addItem2); 
+    addItem.appendChild(addItem3);
+    addItem.appendChild(addItem4);
 
+    //元々あるatbleタグの中にaddItemを紐づける
     testTable.appendChild(addItem);
+
+    //indexを増加
+    index++;
 })
 
 //手順３
