@@ -15,18 +15,21 @@
 //手順１
 //document.getElementById()という関数を用いて追加ボタンのDOM要素を取得
 //※HTMLファイルも少しいじる必要があります。
-let btn = document.getElementById('btn');
+const btn = document.getElementById('btn');
 
 index = 1;
 //手順２
 //追加ボタン押下時に実行する関数を定義
 btn.addEventListener('click', add => {
     //テーブルの要素を作る
-    let addItem = document.createElement('tr');
-    let addItem1 = document.createElement('td');
-    let addItem2 = document.createElement('td');
-    let addItem3 = document.createElement('button');
-    let addItem4 = document.createElement('button');
+    const addItem = document.createElement('tr');
+    const addItem1 = document.createElement('td');
+    const addItem2 = document.createElement('td');
+    const addItem3 = document.createElement('td');
+    const addItem4 = document.createElement('td');
+    //ここでstatusBtnにidを付与したいのですが、方法がわかりません。
+    const statusBtn = document.createElement('button');
+    const deleteBtn = document.createElement('button');
 
     //textにnputタグに入力された文字列を取得して代入
     let text = document.getElementById('task').value;
@@ -34,11 +37,15 @@ btn.addEventListener('click', add => {
     //addItem1の文字列にindexを代入
     addItem1.textContent = index;
     //addItem2の文字列にtextを代入
-    addItem2.textContent = text;
-    
+    addItem2.textContent = text;    
+
     //作成したbuttonに名前をつける
-    addItem3.textContent = "作業中";
-    addItem4.textContent = "削除";
+    statusBtn.textContent = "作業中";
+    deleteBtn.textContent = "削除";
+    
+    //addItem3と4の位置に作成したボタンを紐づける
+    addItem3.appendChild(statusBtn); 
+    addItem4.appendChild(deleteBtn);
 
     //作ったテーブルにaddItem1と2を追加
     addItem.appendChild(addItem1);
@@ -49,10 +56,16 @@ btn.addEventListener('click', add => {
     //元々あるatbleタグの中にaddItemを紐づける
     testTable.appendChild(addItem);
 
-    //indexを増加
+    //indexをインクリメント
     index++;
 })
 
 //手順３
 //上記関数にフォームの値を取得して、その要素をHTMLに追加する処理を実装
 //createElement、appendChild、textContentなどを使用します
+
+const status = document.getElementById('status');
+
+status.addEventListener('click', completion => {
+    statusBtn.textContent = "完了";  
+})
