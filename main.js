@@ -22,24 +22,12 @@ index = 1;
 //statusボタンを作成する関数
 const createStsBtn = () => {
     //ボタンタグを生成
-    const statusBtn = document.createElement('button');
+
     //ID要素を付与
-    statusBtn.id = 'statusBtn' + index;
+
     //作成したbuttonに名前をつける
-    statusBtn.textContent = "作業中";
+
     //ボタン押下時の処理を追加
-    statusBtn.addEventListener('click', () => {
-        if(statusBtn.textContent === "完了"){
-            statusBtn.textContent = "作業中";
-        }
-        else if(statusBtn.textContent === "作業中"){
-            statusBtn.textContent = "完了";
-        }
-        else{
-            console.log('error!!');
-        }
-    })
-    return statusBtn;
 }
 
 //手順２
@@ -65,8 +53,10 @@ btn.addEventListener('click', add => {
     //作成したbuttonに名前をつける
     deleteBtn.textContent = "削除";
     
+    //createStsBtnを呼び出してStatusボタン生成
+
     //addItem3と4の位置に作成したボタンを紐づける
-    addItem3.appendChild(createStsBtn()); 
+    addItem3.appendChild(/*Statusボタン*/); 
     addItem4.appendChild(deleteBtn);
 
     //作ったテーブルにaddItem1と2を追加
