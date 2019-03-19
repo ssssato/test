@@ -18,6 +18,59 @@
 const btn = document.getElementById('btn');
 
 index = 1;
+
+//statusボタンを作成する関数
+const createStsBtn = () => {
+    //ボタンを作成
+    const statusBtn = document.createElement('button');
+    //1,IDを付与、なくてもいい
+    statusBtn.id = "status" + index;
+    //作成したbuttonに名前をつける
+    statusBtn.textContent = '作業中';
+    //ボタン押下時の処理を追加
+    statusBtn.addEventListener('click',() => {
+            if(statusBtn.textContent === "完了"){
+                statusBtn.textContent = "作業中";
+            }
+            else if(statusBtn.textContent === "作業中"){
+                statusBtn.textContent = "完了";
+            }
+            else{
+                console.log("error");
+            }
+    });
+    
+    return statusBtn;
+
+}
+
+//deleteボタンを作成する関数
+const createDltBtn = () => {
+    //ボタンを作成
+    const deleteBtn = document.createElement('button');
+    //IDを付与
+    deleteBtn.id = "delete" + index;
+    //作成したbuttonに名前をつける
+    deleteBtn.textContent = '削除';
+    //ボタン押下時の処理を追加
+    deleteBtn.addEventListener('click',() => {
+        //削除ボタンの要素を取得
+        let dlt = document.getElementById('delete' + index);
+        //削除ボタンの親要素(td)を取得
+        let deletion = dlt.parentNode;
+        //その親要素(tr)を取得
+        let x = deletion.parentNode;
+        //さらに親要素(table)を取得
+        let y = x.parentNode;
+        //削除
+        y.removeChild(x);
+    });
+    
+    return deleteBtn;
+
+}
+
+
 //手順２
 //追加ボタン押下時に実行する関数を定義
 btn.addEventListener('click', add => {
@@ -27,25 +80,26 @@ btn.addEventListener('click', add => {
     const addItem2 = document.createElement('td');
     const addItem3 = document.createElement('td');
     const addItem4 = document.createElement('td');
-    //ここでstatusBtnにidを付与したいのですが、方法がわかりません。
-    const statusBtn = document.createElement('button');
-    const deleteBtn = document.createElement('button');
 
-    //textにnputタグに入力された文字列を取得して代入
+    //textにinputタグに入力された文字列を取得して代入
     let text = document.getElementById('task').value;
 
     //addItem1の文字列にindexを代入
     addItem1.textContent = index;
     //addItem2の文字列にtextを代入
     addItem2.textContent = text;    
-
-    //作成したbuttonに名前をつける
-    statusBtn.textContent = "作業中";
-    deleteBtn.textContent = "削除";
     
+
+    //createStsBtnを呼び出してStatusボタン生成
+    createStsBtn();
+
+    //createDltBtnを呼び出してStatusボタン生成
+    createDltBtn();
+
+
     //addItem3と4の位置に作成したボタンを紐づける
-    addItem3.appendChild(statusBtn); 
-    addItem4.appendChild(deleteBtn);
+    addItem3.appendChild(createStsBtn()); 
+    addItem4.appendChild(createDltBtn());
 
     //作ったテーブルにaddItem1と2を追加
     addItem.appendChild(addItem1);
@@ -53,19 +107,13 @@ btn.addEventListener('click', add => {
     addItem.appendChild(addItem3);
     addItem.appendChild(addItem4);
 
-    //元々あるatbleタグの中にaddItemを紐づける
+    //元々あるtableタグの中にaddItemを紐づける
     testTable.appendChild(addItem);
 
     //indexをインクリメント
     index++;
-})
+});
 
 //手順３
 //上記関数にフォームの値を取得して、その要素をHTMLに追加する処理を実装
 //createElement、appendChild、textContentなどを使用します
-
-const status = document.getElementById('status');
-
-status.addEventListener('click', completion => {
-    statusBtn.textContent = "完了";  
-})
