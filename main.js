@@ -17,6 +17,7 @@
 //※HTMLファイルも少しいじる必要があります。
 const btn = document.getElementById('btn');
 
+//
 index = 1;
 
 //statusボタンを作成する関数
@@ -24,17 +25,26 @@ const createStsBtn = () => {
     //ボタンを作成
     const statusBtn = document.createElement('button');
     //1,IDを付与、なくてもいい
-    statusBtn.id = "status" + index;
+    //statusBtn.id = "status" + index;
+    //不要な処理なのでは？
     
     //作成したbuttonに名前をつける
     statusBtn.textContent = '作業中';
+
+    //作業中ボタン用のＩＤを付与
+    statusBtn.className = 'doing';
+
     //ボタン押下時の処理を追加
     statusBtn.addEventListener('click',() => {
             if(statusBtn.textContent === "完了"){
                 statusBtn.textContent = "作業中";
+                //作業中ボタン用のＩＤを付与
+                statusBtn.className = 'doing';
             }
             else if(statusBtn.textContent === "作業中"){
                 statusBtn.textContent = "完了";
+                //完了ボタン用のＩＤを付与する
+                statusBtn.className = 'comp';
             }
             else{
                 console.log("error");
@@ -56,10 +66,11 @@ const createDltBtn = (_index) => {
     //ボタン押下時の処理を追加
     deleteBtn.addEventListener('click',() => {
         //削除ボタンの要素を取得
-        let dlt = document.getElementById('delete' + _index);
+        //let dlt = document.getElementById('delete' + _index);
+        //取得しなくとも、deleteBtnを使えばＯＫ！！
         
         //削除ボタンの親要素(td)を取得
-        let deletion = dlt.parentNode;
+        let deletion = deleteBtn.parentNode;
         //その親要素(tr)を取得
         let x = deletion.parentNode;
         //さらに親要素(table)を取得
@@ -85,6 +96,9 @@ btn.addEventListener('click', add => {
 
     //textにinputタグに入力された文字列を取得して代入
     let text = document.getElementById('task').value;
+
+    //入力された文字列を初期化
+    document.getElementById('task').value = '';
 
     //addItem1の文字列にindexを代入
     addItem1.textContent = index;
@@ -120,7 +134,10 @@ btn.addEventListener('click', add => {
 //上記関数にフォームの値を取得して、その要素をHTMLに追加する処理を実装
 //createElement、appendChild、textContentなどを使用します
 
+/*
 //作業中ボタン要素を取ってくる関数
+↑
+良い方針だが、最初は少しややこしくなりかねないので、一旦保留
 const getStsBtn = (Index) => {
     //ラジオボタンの作業中の要素取得
     let done = document.getElementById('status' + Index);
@@ -129,8 +146,124 @@ const getStsBtn = (Index) => {
     tr
     let done3 = done2.parentNode;
 };
+*/
 
-work.addEventListener('click', add => {
-    getStsBtn(index);
-    done3.style.display = "none";
+
+
+//作業中のラジオボタン押下時の処理
+    //statusボタンのＩＤがcompになっている列を非表示にさせる
+    //同時に
+    //statusボタンのＩＤがdoingになっている列を表示させる
+const radioWork = document.getElementById('work');
+radioWork.addEventListener('click', add => {
+//statusボタンのＩＤがcompになっている列を非表示にさせる部分
+    //statusボタンのＩＤがcompになっているボタンの要素を取得
+    const compNodeLists = document.getElementsByClassName('comp');
+    
+    //compsがNodeListsという特殊な配列のため、通常の配列に変換
+    const comps = Array.from(compNodeLists);
+
+    //comps配列のループ処理
+    comps.forEach(comp => {
+        //ボタン要素から親要素へたどっていく
+        const parentComp = comp.parentNode.parentNode;
+
+        //列要素を非表示にする
+        parentComp.style.display = "none";
+    });
+
+//statusボタンのＩＤがdoingになっている列を表示させる部分
+    //statusボタンのＩＤがdoingになっているボタンの要素を取得
+    const doingNodeLists = document.getElementsByClassName('doing');
+    
+    //doingsがNodeListsという特殊な配列のため、通常の配列に変換
+    const doings = Array.from(doingNodeLists);
+        
+    //doings配列のループ処理
+    doings.forEach(doing => {
+    //ボタン要素から親要素へたどっていく
+    const parentDoing = doing.parentNode.parentNode;
+
+    //列要素を表示にする
+    parentDoing.style.display = " ";
+    });    
+
+});
+
+
+
+//完了のラジオボタン押下時の処理
+    //statusボタンのＩＤがdoingになっている列を非表示にさせる
+    //同時に
+    //statusボタンのＩＤがcompになっている列を表示させる
+const radioDone = document.getElementById('done');
+radioDone.addEventListener('click', add => {
+//statusボタンのＩＤがdoingになっている列を非表示にさせる部分
+    //statusボタンのＩＤがdoingになっているボタンの要素を取得
+    const doingNodeLists = document.getElementsByClassName('doing');
+    
+    //doingsがNodeListsという特殊な配列のため、通常の配列に変換
+    const doings = Array.from(doingNodeLists);
+
+    //doings配列のループ処理
+    doings.forEach(doing => {
+        //ボタン要素から親要素へたどっていく
+        const parentDoing = doing.parentNode.parentNode;
+
+        //列要素を非表示にする
+        parentDoing.style.display = "none";
+    });
+
+//statusボタンのＩＤがcompになっている列を表示させる部分
+     //statusボタンのＩＤがcompになっているボタンの要素を取得
+     const compNodeLists = document.getElementsByClassName('comp');
+    
+     //compsがNodeListsという特殊な配列のため、通常の配列に変換
+     const comps = Array.from(compNodeLists);
+ 
+     //comps配列のループ処理
+     comps.forEach(comp => {
+         //ボタン要素から親要素へたどっていく
+         const parentComp = comp.parentNode.parentNode;
+ 
+         //列要素を表示にする
+         parentComp.style.display = " ";
+     });
+});
+
+
+//すべてのラジオボタン押下時の処理
+    //statusボタンのＩＤがcompになっている列を表示にさせる
+    //同時に
+    //statusボタンのＩＤがdoingになっている列を表示させる
+const radioAll = document.getElementById('all');
+radioAll.addEventListener('click', add => {
+    //statusボタンのＩＤがcompになっているボタンの要素を取得
+    const compNodeLists = document.getElementsByClassName('comp');
+    //statusボタンのＩＤがdoingになっているボタンの要素を取得
+    const doingNodeLists = document.getElementsByClassName('doing');
+
+    //compsがNodeListsという特殊な配列のため、通常の配列に変換
+    const comps = Array.from(compNodeLists);
+    //doingsがNodeListsという特殊な配列のため、通常の配列に変換
+    const doings = Array.from(doingNodeLists);
+
+    //comps配列のループ処理
+    comps.forEach(comp => {
+        //ボタン要素から親要素へたどっていく
+        const parentComp = comp.parentNode.parentNode;
+
+        //列要素を表示にする
+        parentComp.style.display = " ";
+    });
+
+    //doings配列のループ処理
+    doings.forEach(doing => {
+        //ボタン要素から親要素へたどっていく
+        const parentDoing = doing.parentNode.parentNode;
+
+        //列要素を表示にする
+        parentDoing.style.display = " ";
+    });
+
 });
