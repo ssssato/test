@@ -20,6 +20,8 @@ const btn = document.getElementById('btn');
 //
 index = 1;
 
+let ary = [];
+
 //statusボタンを作成する関数
 const createStsBtn = () => {
     //ボタンを作成
@@ -77,6 +79,7 @@ const createDltBtn = (_index) => {
         let y = x.parentNode;
         //削除
         y.removeChild(x);
+    
     });
     
     return deleteBtn;
@@ -137,7 +140,7 @@ btn.addEventListener('click', add => {
 /*
 //作業中ボタン要素を取ってくる関数
 ↑
-良い方針だが、最初は少しややこしくなりかねないので、一旦保留
+良い方針だが、最初は少しややこしくなりかねないので、一旦保留→151行目から217行目で直した
 const getStsBtn = (Index) => {
     //ラジオボタンの作業中の要素取得
     let done = document.getElementById('status' + Index);
@@ -148,8 +151,110 @@ const getStsBtn = (Index) => {
 };
 */
 
+//①statusボタンのIDがcompになっている列を非表示させる関数
+const hideComp = () => {
+    //statusボタンのＩＤがcompになっているボタンの要素を取得
+    const compNodeLists = document.getElementsByClassName('comp');
+    
+    //compsがNodeListsという特殊な配列のため、通常の配列に変換
+    const comps = Array.from(compNodeLists);
 
+    //comps配列のループ処理
+    comps.forEach(comp => {
+        //ボタン要素から親要素へたどっていく
+        const parentComp = comp.parentNode.parentNode;
 
+        //列要素を非表示にする
+        parentComp.style.display = "none";
+    });
+};
+
+//②statusボタンのIDがdoingになっている列を表示させる関数
+const openDoing = () => {
+    //statusボタンのＩＤがdoingになっているボタンの要素を取得
+    const doingNodeLists = document.getElementsByClassName('doing');
+    
+    //doingsがNodeListsという特殊な配列のため、通常の配列に変換
+    const doings = Array.from(doingNodeLists);
+        
+    //doings配列のループ処理
+    doings.forEach(doing => {
+    //ボタン要素から親要素へたどっていく
+    const parentDoing = doing.parentNode.parentNode;
+
+    //列要素を表示にする
+    parentDoing.style.display = "";
+    });     
+};
+
+//③statusボタンのIDがdoingになっている列を非表示にさせる関数
+const hideDoing = () => {
+    //statusボタンのＩＤがdoingになっているボタンの要素を取得
+    const doingNodeLists = document.getElementsByClassName('doing');
+    
+    //doingsがNodeListsという特殊な配列のため、通常の配列に変換
+    const doings = Array.from(doingNodeLists);
+
+    //doings配列のループ処理
+    doings.forEach(doing => {
+        //ボタン要素から親要素へたどっていく
+        const parentDoing = doing.parentNode.parentNode;
+
+        //列要素を非表示にする
+        parentDoing.style.display = "none";
+    });
+};
+
+//④statusボタンのIDがcompになっている列を表示させる関数
+const openComp = () => {
+    //statusボタンのＩＤがcompになっているボタンの要素を取得
+    const compNodeLists = document.getElementsByClassName('comp');
+    
+    //compsがNodeListsという特殊な配列のため、通常の配列に変換
+    const comps = Array.from(compNodeLists);
+
+    //comps配列のループ処理
+    comps.forEach(comp => {
+        //ボタン要素から親要素へたどっていく
+        const parentComp = comp.parentNode.parentNode;
+
+        //列要素を表示にする
+        parentComp.style.display = "";
+    });
+};
+
+//作業中のラジオボタン押下時の処理
+    //statusボタンのＩＤがcompになっている列を非表示にさせる
+    //同時に
+    //statusボタンのＩＤがdoingになっている列を表示させる
+const radioWork = document.getElementById('work');
+radioWork.addEventListener('click', add => {
+    hideComp();
+    openDoing();
+});
+
+//完了のラジオボタン押下時の処理
+    //statusボタンのＩＤがdoingになっている列を非表示にさせる
+    //同時に
+    //statusボタンのＩＤがcompになっている列を表示させる
+const radioDone = document.getElementById('done');
+radioDone.addEventListener('click', add => {
+    hideDoing();
+    openComp();
+});
+
+//すべてのラジオボタン押下時の処理
+    //statusボタンのＩＤがcompになっている列を表示にさせる
+    //同時に
+    //statusボタンのＩＤがdoingになっている列を表示させる
+const radioAll = document.getElementById('all');
+radioAll.addEventListener('click', add => {
+    openComp();
+    openDoing();
+});
+
+//以下を関数を利用して書き換えた
+/*
 //作業中のラジオボタン押下時の処理
     //statusボタンのＩＤがcompになっている列を非表示にさせる
     //同時に
@@ -185,9 +290,8 @@ radioWork.addEventListener('click', add => {
     const parentDoing = doing.parentNode.parentNode;
 
     //列要素を表示にする
-    parentDoing.style.display = " ";
+    parentDoing.style.display = "";
     });    
-
 });
 
 
@@ -227,7 +331,7 @@ radioDone.addEventListener('click', add => {
          const parentComp = comp.parentNode.parentNode;
  
          //列要素を表示にする
-         parentComp.style.display = " ";
+         parentComp.style.display = "";
      });
 });
 
@@ -254,7 +358,7 @@ radioAll.addEventListener('click', add => {
         const parentComp = comp.parentNode.parentNode;
 
         //列要素を表示にする
-        parentComp.style.display = " ";
+        parentComp.style.display = "";
     });
 
     //doings配列のループ処理
@@ -263,7 +367,7 @@ radioAll.addEventListener('click', add => {
         const parentDoing = doing.parentNode.parentNode;
 
         //列要素を表示にする
-        parentDoing.style.display = " ";
+        parentDoing.style.display = "";
     });
-
 });
+*/
