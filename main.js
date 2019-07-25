@@ -20,14 +20,14 @@ const btn = document.getElementById('btn');
 //
 index = 1;
 
-let ary = [];
+let arr = [];
 
 //statusボタンを作成する関数
 const createStsBtn = () => {
     //ボタンを作成
     const statusBtn = document.createElement('button');
     //1,IDを付与、なくてもいい
-    //statusBtn.id = "status" + index;
+    statusBtn.id = "status" + index;
     //不要な処理なのでは？
     
     //作成したbuttonに名前をつける
@@ -128,6 +128,26 @@ btn.addEventListener('click', add => {
 
     //元々あるtableタグの中にaddItemを紐づける
     testTable.appendChild(addItem);
+
+    arr.length = 0;
+
+    //for文
+    //IDでstatus1から現在のstatus+indexまで順に要素を取得す
+    for (var i=1; i<=index; i++) {
+        let statusDoing = document.getElementById('status'+i).textContent;
+        arr.push({comment:addItem2.textContent,status:statusDoing});
+    }
+
+    
+    /*const statusDoingNodeLists = document.getElementsByClassName('doing');
+    
+    const statusDoings = Array.from(statusDoingNodeLists);
+    let len = statusDoings.length;
+    console.log(statusDoings);
+    for (var i = 0; i<=len; i++) {
+            arr.push({comment:addItem2.textContent,status:statusDoings});
+    }*/
+    console.log(arr);
 
     //indexをインクリメント
     index++;
