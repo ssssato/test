@@ -129,24 +129,8 @@ btn.addEventListener('click', add => {
     //元々あるtableタグの中にaddItemを紐づける
     testTable.appendChild(addItem);
 
-    arr.length = 0;
-
-    //for文
-    //IDでstatus1から現在のstatus+indexまで順に要素を取得す
-    for (var i=1; i<=index; i++) {
-        let statusDoing = document.getElementById('status'+i).textContent;
-        arr.push({comment:addItem2.textContent,status:statusDoing});
-    }
-
-    
-    /*const statusDoingNodeLists = document.getElementsByClassName('doing');
-    
-    const statusDoings = Array.from(statusDoingNodeLists);
-    let len = statusDoings.length;
-    console.log(statusDoings);
-    for (var i = 0; i<=len; i++) {
-            arr.push({comment:addItem2.textContent,status:statusDoings});
-    }*/
+    let statusDoing = document.getElementById('status'+index).textContent;
+    arr.push({comment:addItem2.textContent,status:statusDoing});
     console.log(arr);
 
     //indexをインクリメント
