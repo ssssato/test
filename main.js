@@ -79,11 +79,55 @@ const createDltBtn = (_index) => {
         let y = x.parentNode;
         //削除
         y.removeChild(x);
-    
+
+        //arr配列を削除ボタンで削除したものが反映されたary配列にする
+        let ary = arr.filter(function(value, index, array) {
+           return index !== _index-1;
+        });
+        console.log(ary);
+
+        //ary配列を表示させるupdateDisplay関数
+        const updateDisplay = () => {
+            ary.forEach(function(value,index,array) {
+                //テーブルの要素を作る
+                const addItem = document.createElement('tr');
+                const addItem1 = document.createElement('td');
+                const addItem2 = document.createElement('td');
+                const addItem3 = document.createElement('td');
+                const addItem4 = document.createElement('td');
+        
+                 //textにinputタグに入力された文字列を代入（arr配列のcomment部分）
+                let text = ary[index].comment;        
+        
+                //addItem1の文字列にindexを代入(IDの表示)
+                addItem1.textContent = index;
+                //addItem2の文字列にtextを代入
+                addItem2.textContent = text;
+        
+                //addItem3と4の位置に作成したボタンを紐づける
+                addItem3.appendChild(createStsBtn()); 
+                addItem4.appendChild(createDltBtn(index));
+        
+                //作ったテーブルにaddItem1と2を追加
+                addItem.appendChild(addItem1);
+                addItem.appendChild(addItem2); 
+                addItem.appendChild(addItem3);
+                addItem.appendChild(addItem4);
+        
+                //元々あるtableタグの中にaddItemを紐づける
+                testTable.appendChild(addItem);
+        
+            });
+        
+        }
+
+        //indexをデクリメントする
+        index--;
+        
+
     });
     
     return deleteBtn;
-
 
 }
 
@@ -135,7 +179,9 @@ btn.addEventListener('click', add => {
 
     //indexをインクリメント
     index++;
+
 });
+
 
 //手順３
 //上記関数にフォームの値を取得して、その要素をHTMLに追加する処理を実装
