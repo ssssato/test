@@ -81,10 +81,15 @@ const createDltBtn = (_index) => {
         y.removeChild(x);
 
         //arr配列を削除ボタンで削除したものが反映されたary配列にする
-        let ary = arr.filter(function(value, index, array) {
+        let ary = arr.filter(function(value,index,array) {
            return index !== _index-1;
         });
+        arr = ary;
         console.log(ary);
+        console.log(arr);
+        console.log(index);
+        console.log(_index);
+
 
         //ary配列を表示させるupdateDisplay関数
         const updateDisplay = () => {
@@ -123,7 +128,9 @@ const createDltBtn = (_index) => {
 
         //indexをデクリメントする
         index--;
-        
+        console.log(index);
+        _index--;
+        console.log(_index);
 
     });
     
